@@ -1,5 +1,6 @@
-import TerminalBox from "@/components/main/TerminalBox";
+import TerminalBox from "@/components/terminal/TerminalBox";
 import Background from "@/components/shared/Background";
+import Kernel from "@/components/kernel";
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
             <p>For better experience please try this with pc!</p>
             <p>This is not design for mobile view.</p>
           </div>
-          <TerminalBox />
+          <Kernel />
         </div>
 
       </div>

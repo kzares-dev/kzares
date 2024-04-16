@@ -8,21 +8,13 @@ import EnteredCmd from "./EnteredCmd";
 import CmdUserInput from "./CmdUserInput";
 import renderCmd from "@/lib/renderCmd"
 import { Rnd } from "react-rnd"
+import { TerminalBoxProps, command } from "@/types";
 
-export default function TerminalBox() {
+
+
+export default function TerminalBox({ commands, position }: TerminalBoxProps) {
 	// This state is the container of all commands
-	const [enteredCmd, setEnteredCmd] = useState([
-		{
-			cmd: "",
-			Component: Welcome,
-			time: new Date().toLocaleTimeString(),
-		},
-		{
-			cmd: "help",
-			Component: Help,
-			time: new Date().toLocaleTimeString(),
-		},
-	]);
+	const [enteredCmd, setEnteredCmd] = useState<command[]>(commands);
 
 	// scroll to bottom
 	const dummyRef = useRef() as React.MutableRefObject<HTMLDivElement>;
@@ -52,11 +44,13 @@ export default function TerminalBox() {
 		height: window.innerHeight
 	});
 
+	// !Is needed to fix this
+
 	const elementWidth = 896; // Ancho del elemento que deseas centrar
-	const elementHeight = windowSize.height/2; // Alto del elemento que deseas centrar
+	const elementHeight = windowSize.height / 2; // Alto del elemento que deseas centrar
 
 	const centerX = (windowSize.width - elementWidth) / 2;
-	const centerY = -windowSize.height/4;
+	const centerY = -windowSize.height / 4;
 
 	useEffect(() => {
 		const handleResize = () => {

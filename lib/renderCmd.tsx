@@ -1,8 +1,8 @@
-import Bio from "@/components/main/commands/Bio";
-import Contact from "@/components/main/commands/Contact";
-import Help from "@/components/main/commands/Help";
-import NotFound from "@/components/main/commands/NotFound";
-import Skills from "@/components/main/commands/Skills";
+import Bio from "@/components/terminal/commands/Bio";
+import Contact from "@/components/terminal/commands/Contact";
+import Help from "@/components/terminal/commands/Help";
+import NotFound from "@/components/terminal/commands/NotFound";
+import Skills from "@/components/terminal/commands/Skills";
 import { CmdHistory } from "@/types";
 
 
