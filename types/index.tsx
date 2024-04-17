@@ -12,6 +12,7 @@ export type command = {
 
 export interface TerminalBoxProps {
 	commands: command[],
+	id: number,
 	position: {
 		x: number,
 		y: number,

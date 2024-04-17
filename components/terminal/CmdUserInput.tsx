@@ -2,8 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import BaseCmdInput from "./BaseCmdInput";
 interface CmdUserInputProp {
 	onSubmit: (cmd: string) => void;
+	focusTerminal: number,
+	id: number,
 }
-export default function CmdUserInput({ onSubmit }: CmdUserInputProp) {
+export default function CmdUserInput({ onSubmit, focusTerminal, id }: CmdUserInputProp) {
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 	const [showFakeCursor, setShowFakeCursor] = useState(false);
 	const [prevCmd, setPrevCmd] = useState<string[]>([]);
@@ -18,44 +20,7 @@ export default function CmdUserInput({ onSubmit }: CmdUserInputProp) {
 		}
 		setPrevCmdIndex(-1);
 	};
-	const handleKeyDown = (e: KeyboardEvent) => {
-		if (
-			document.activeElement !== inputRef.current &&
-			!e.ctrlKey &&
-			e.key !== "c" &&
-			e.key.toLowerCase() !== "meta" &&
-			e.key !== "ArrowUp"
-		) {
-			inputRef.current?.focus();
-		} else if (e.key === "ArrowUp") {
-			inputRef.current?.blur();
-			setPrevCmdIndex((currentValue) => currentValue + 1);
-		} else if (e.key === "ArrowDown") {
-			setPrevCmdIndex((currentValue) => currentValue - 1);
-		}
-	};
-	useEffect(() => {
-		document.addEventListener("keydown", handleKeyDown);
-		return () => {
-			document.body.removeEventListener("keydown", handleKeyDown);
-		};
-	}, []);
-
-	useEffect(() => {
-		const input = inputRef.current;
-		let timeout: any = null;
-		if (input) {
-			input.value = prevCmd[prevCmdIndex] ? prevCmd[prevCmdIndex] : "";
-			inputRef.current?.focus();
-			timeout = setTimeout(
-				() => inputRef.current.setSelectionRange(-1, -1),
-				10
-			);
-		}
-		return () => {
-			clearTimeout(timeout);
-		};
-	}, [prevCmdIndex, prevCmd]);
+	
 
 	return (
 		<BaseCmdInput
@@ -66,12 +31,9 @@ export default function CmdUserInput({ onSubmit }: CmdUserInputProp) {
 					)}
 					<input
 						className="translate-y-2 -translate-x-3 bg-inherit w-full focus:outline-none placeholder:text-gray-600 placeholder:tracking-wider"
-						autoFocus
-						onBlur={() => {
-							setShowFakeCursor(true);
-						}}
+						
 						onFocus={() => {
-							setShowFakeCursor(false);
+							setShowFakeCursor(true);
 						}}
 						ref={inputRef}
 						placeholder="try help , bio , skill , contact..."

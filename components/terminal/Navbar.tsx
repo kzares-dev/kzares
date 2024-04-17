@@ -15,7 +15,7 @@ export default function Navbar() {
 	];
 	return (
 		<div>
-			<div className="text-gray-300 max-w-4xl mx-auto border-x-2 border-t-2 border-slate-800 rounded-t-md bg-slate-800 p-2 flex items-center">
+			<div className=" text-gray-300 max-w-4xl mx-auto border-x-2 border-t-2 border-slate-800 rounded-t-md bg-slate-800 p-2 flex items-center">
 				<div className="flex gap-2">
 					{boxs.map(({ color }, index) => {
 						return (

@@ -2,17 +2,19 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
 import TodayDate from "./TodayDate";
-import Welcome from "./commands/Welcome";
-import Help from "./commands/Help";
 import EnteredCmd from "./EnteredCmd";
 import CmdUserInput from "./CmdUserInput";
 import renderCmd from "@/lib/renderCmd"
 import { Rnd } from "react-rnd"
 import { TerminalBoxProps, command } from "@/types";
 
+interface focusTerminalType {
+	focusTerminal: number
+	clickOnTerminal: (i: number) => void
+}
 
+export default function TerminalBox({ commands, position, id, focusTerminal, clickOnTerminal }: TerminalBoxProps & focusTerminalType) {
 
-export default function TerminalBox({ commands, position }: TerminalBoxProps) {
 	// This state is the container of all commands
 	const [enteredCmd, setEnteredCmd] = useState<command[]>(commands);
 
@@ -67,23 +69,33 @@ export default function TerminalBox({ commands, position }: TerminalBoxProps) {
 		};
 	}, []);
 
+	//handling the focus on the element
+
 	return (
+
 		<Rnd
+
 			default={{
 				x: centerX,
 				y: centerY,
 				width: "896",
 				height: "0",
 			}}
+			className={`${focusTerminal === id ? 'z-[100000]' : 'z-0' }`}
+			
 		>
-			<Navbar />
-			<div className="max-w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto h-50vh bg-black bg-opacity-75 box">
-				<TodayDate />
-				<EnteredCmd enteredCmd={enteredCmd} />
-				<CmdUserInput onSubmit={handleSubmit} />
-				<div ref={dummyRef}></div>
+			<div
+				onClick={() => clickOnTerminal(id)}
+			>
+				<Navbar />
+				<div className="z-1 max-w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto h-50vh bg-black bg-opacity-80 box">
+					<TodayDate />
+					<EnteredCmd enteredCmd={enteredCmd} />
+					<CmdUserInput id={id} focusTerminal={focusTerminal} onSubmit={handleSubmit} />
+					<div ref={dummyRef}></div>
 
 
+				</div>
 			</div>
 		</Rnd>
 
