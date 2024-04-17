@@ -11,9 +11,10 @@ import { TerminalBoxProps, command } from "@/types";
 interface focusTerminalType {
 	focusTerminal: number
 	clickOnTerminal: (i: number, callback: () => void) => void
+	isUnique: boolean
 }
 
-export default function TerminalBox({ commands, position, id, focusTerminal, clickOnTerminal }: TerminalBoxProps & focusTerminalType) {
+export default function TerminalBox({ commands, position, id, focusTerminal, clickOnTerminal, isUnique }: TerminalBoxProps & focusTerminalType) {
 
 	// This state is the container of all commands
 	const [enteredCmd, setEnteredCmd] = useState<command[]>(commands);
@@ -42,47 +43,21 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 			setEnteredCmd([]);
 		}
 	};
-	// Track the screen size to put the terminal in center
-	const [windowSize, setWindowSize] = useState({
-		width: window.innerWidth,
-		height: window.innerHeight
-	});
-
-	// !Is needed to fix this
-
-	const elementWidth = 896; // Ancho del elemento que deseas centrar
-	const elementHeight = windowSize.height / 2; // Alto del elemento que deseas centrar
-
-	const centerX = (windowSize.width - elementWidth) / 2;
-	const centerY = -windowSize.height / 4;
-
-	useEffect(() => {
-		const handleResize = () => {
-			setWindowSize({
-				width: window.innerWidth,
-				height: window.innerHeight
-			});
-		};
-
-		window.addEventListener('resize', handleResize);
-
-		return () => {
-			window.removeEventListener('resize', handleResize);
-		};
-	}, []);
-
+	
+	
 	//handling the focus on the element
 	// this method pass the ref to child component & keep the focus functionality on this level
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 	const focusOnInput = () => { inputRef.current.focus() }
 
+	console.log(isUnique)
 	return (
 
 		<Rnd
 
 			default={{
-				x: centerX,
-				y: centerY,
+				x: position.x,
+				y: position.y,
 				width: "896",
 				height: "0",
 			}}
@@ -93,7 +68,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 				onClick={() => clickOnTerminal(id, focusOnInput)}
 			>
 				<Navbar />
-				<div className={`z-1 max-w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto h-50vh bg-black bg-opacity-80 box ${focusTerminal === id && 'bg-opacity-90'} `} >
+				<div className={`z-1 max-w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto h-50vh bg-black bg-opacity-[.75] box ${(focusTerminal === id && !isUnique) ? 'bg-opacity-[.90]' : ""} transition-all duration-[800] `} >
 					<TodayDate />
 					<EnteredCmd enteredCmd={enteredCmd} />
 					<CmdUserInput

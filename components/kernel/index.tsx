@@ -8,6 +8,29 @@ import { terminalsAtom } from "@/lib/recoil";
 import { TerminalBoxProps } from "@/types";
 
 const Kernel = () => {
+    // functions to get the screen size to center the terminals
+    const [windowSize, setWindowSize] = useState({
+        width: window.innerWidth,
+        height: window.innerHeight
+    });
+    // Track the screen size to put the terminal in center
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
+    // state that holds all the terminals : but does not contains the data of the comands
     const [terminals, setTerminals] = useState<TerminalBoxProps[]>([]);
 
     const firtCmd = {
@@ -25,8 +48,8 @@ const Kernel = () => {
             }
         ],
         position: {
-            x: 100,
-            y: 200,
+            x: windowSize.width / 4,
+            y: -windowSize.height / 4,
         }
     }
 
@@ -39,7 +62,13 @@ const Kernel = () => {
                 } else if (terminals.length === 4) {
                     alert("Limit of terminals reached");
                 } else {
-                    setTerminals([...terminals, { commands: [], id: terminals.length, position: { x: 100, y: 200 } }]);
+                    setTerminals([...terminals,
+                    {
+                        commands: [],
+                        id: terminals.length,
+                        position: { x: windowSize.width /4 + 50*terminals.length, y: -windowSize.height /4 - 50*terminals.length }
+                    }
+                    ]);
                     setFocusTerminal(terminals.length)
                 }
             }
@@ -64,6 +93,7 @@ const Kernel = () => {
         <>
             {
                 terminals.map((terminal, idx) => <TerminalBox
+                    isUnique={terminals.length === 1}
                     focusTerminal={focusTerminal}
                     clickOnTerminal={clickOnTerminal}
                     id={terminal.id}
