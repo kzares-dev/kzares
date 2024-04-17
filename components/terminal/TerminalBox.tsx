@@ -24,21 +24,35 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 	useEffect(() => {
 		dummyRef.current.scrollIntoView({ behavior: "auto" });
 	}, [enteredCmd]);
+
 	// simple handle submit 
 	const handleSubmit = (cmd: string) => {
 		setEnteredCmd((currentCmd) => [
 			...currentCmd,
-			{ ...renderCmd(cmd), time: new Date().toLocaleTimeString() },
+			{ ...renderCmd(cmd.trim()), time: new Date().toLocaleTimeString() },
 		]);
 	};
 
 	// watch the combination of crl + l to clear the terminal
 	useEffect(() => {
-		if (focusTerminal !== id) return
-		document.body.addEventListener("keydown", handleKeyEvent);
-	}, [focusTerminal]);
+		const handleKeyEvent = (e: KeyboardEvent) => {
+			if (focusTerminal !== id) return;
+			if (e.ctrlKey && e.key.toLocaleLowerCase() === "l") {
+				setEnteredCmd([]);
+			}
+		};
+	
+		if (focusTerminal === id) {
+			document.body.addEventListener("keydown", handleKeyEvent);
+		}
+	
+		return () => {
+			document.body.removeEventListener("keydown", handleKeyEvent);
+		};
+	}, [focusTerminal, id, setEnteredCmd]);
+
+
 	const handleKeyEvent = (e: KeyboardEvent) => {
-		if (focusTerminal !== id) return
 		if (e.ctrlKey && e.key.toLocaleLowerCase() === "l") {
 			setEnteredCmd([]);
 		}
@@ -50,7 +64,6 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 	const focusOnInput = () => { inputRef.current.focus() }
 
-	console.log(isUnique)
 	return (
 
 		<Rnd
@@ -68,7 +81,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 				onClick={() => clickOnTerminal(id, focusOnInput)}
 			>
 				<Navbar />
-				<div className={`z-1 max-w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto h-50vh bg-black bg-opacity-[.75] box ${(focusTerminal === id && !isUnique) ? 'bg-opacity-[.90]' : ""} transition-all duration-[800] `} >
+				<div className={`z-1 h-[50vh] w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto  bg-black bg-opacity-[.75] box ${(focusTerminal === id && !isUnique) ? 'bg-opacity-[.90]' : ""} transition-all duration-[800] `} >
 					<TodayDate />
 					<EnteredCmd enteredCmd={enteredCmd} />
 					<CmdUserInput
