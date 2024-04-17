@@ -10,7 +10,7 @@ import { TerminalBoxProps, command } from "@/types";
 
 interface focusTerminalType {
 	focusTerminal: number
-	clickOnTerminal: (i: number) => void
+	clickOnTerminal: (i: number, callback: () => void) => void
 }
 
 export default function TerminalBox({ commands, position, id, focusTerminal, clickOnTerminal }: TerminalBoxProps & focusTerminalType) {
@@ -33,9 +33,11 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 
 	// watch the combination of crl + l to clear the terminal
 	useEffect(() => {
+		if (focusTerminal !== id) return
 		document.body.addEventListener("keydown", handleKeyEvent);
-	}, []);
+	}, [focusTerminal]);
 	const handleKeyEvent = (e: KeyboardEvent) => {
+		if (focusTerminal !== id) return
 		if (e.ctrlKey && e.key.toLocaleLowerCase() === "l") {
 			setEnteredCmd([]);
 		}
@@ -70,6 +72,9 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 	}, []);
 
 	//handling the focus on the element
+	// this method pass the ref to child component & keep the focus functionality on this level
+	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+	const focusOnInput = () => { inputRef.current.focus() }
 
 	return (
 
@@ -81,17 +86,21 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 				width: "896",
 				height: "0",
 			}}
-			className={`${focusTerminal === id ? 'z-[100000]' : 'z-0' }`}
-			
+			className={`${focusTerminal === id ? 'z-[100000]' : 'z-0'}`}
+
 		>
 			<div
-				onClick={() => clickOnTerminal(id)}
+				onClick={() => clickOnTerminal(id, focusOnInput)}
 			>
 				<Navbar />
-				<div className="z-1 max-w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto h-50vh bg-black bg-opacity-80 box">
+				<div className={`z-1 max-w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto h-50vh bg-black bg-opacity-80 box ${focusTerminal === id && 'bg-opacity-90'} `} >
 					<TodayDate />
 					<EnteredCmd enteredCmd={enteredCmd} />
-					<CmdUserInput id={id} focusTerminal={focusTerminal} onSubmit={handleSubmit} />
+					<CmdUserInput
+						inputRef={inputRef}
+						id={id}
+						focusTerminal={focusTerminal}
+						onSubmit={handleSubmit} />
 					<div ref={dummyRef}></div>
 
 

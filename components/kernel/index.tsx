@@ -40,6 +40,7 @@ const Kernel = () => {
                     alert("Limit of terminals reached");
                 } else {
                     setTerminals([...terminals, { commands: [], id: terminals.length, position: { x: 100, y: 200 } }]);
+                    setFocusTerminal(terminals.length)
                 }
             }
         };
@@ -54,8 +55,9 @@ const Kernel = () => {
     // handling the click on the terminals
     const [focusTerminal, setFocusTerminal] = useState<number>(0);
 
-    const clickOnTerminal = (i: number) => {
-        setFocusTerminal(i)
+    const clickOnTerminal = (i: number, callback: () => void) => {
+        setFocusTerminal(i);
+        callback()
     }
 
     return (
