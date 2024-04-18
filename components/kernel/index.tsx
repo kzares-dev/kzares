@@ -66,7 +66,7 @@ const Kernel = () => {
                     {
                         commands: [],
                         id: terminals.length,
-                        position: { x: windowSize.width /4 + 50*terminals.length, y: -windowSize.height /4 - 50*terminals.length }
+                        position: { x: windowSize.width / 4 + 50 * terminals.length, y: -windowSize.height / 4 - 50 * terminals.length }
                     }
                     ]);
                     setFocusTerminal(terminals.length)
@@ -89,10 +89,19 @@ const Kernel = () => {
         callback()
     }
 
+    // delete terminal method
+    const killTerminal = (i: number) => {
+        const updatedTerminals = [...terminals];
+        updatedTerminals.splice(i, 1);
+        setTerminals(updatedTerminals);
+        setFocusTerminal(terminals.length - 2)
+    }
+
     return (
         <>
             {
                 terminals.map((terminal, idx) => <TerminalBox
+                    killTerminal={killTerminal}
                     isUnique={terminals.length === 1}
                     focusTerminal={focusTerminal}
                     clickOnTerminal={clickOnTerminal}

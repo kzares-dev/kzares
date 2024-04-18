@@ -8,13 +8,14 @@ import renderCmd from "@/lib/renderCmd"
 import { Rnd } from "react-rnd"
 import { TerminalBoxProps, command } from "@/types";
 
-interface focusTerminalType {
+interface terminalMethods {
 	focusTerminal: number
 	clickOnTerminal: (i: number, callback: () => void) => void
 	isUnique: boolean
+	killTerminal: (i: number) => void
 }
 
-export default function TerminalBox({ commands, position, id, focusTerminal, clickOnTerminal, isUnique }: TerminalBoxProps & focusTerminalType) {
+export default function TerminalBox({ commands, position, id, focusTerminal, clickOnTerminal, isUnique, killTerminal }: TerminalBoxProps & terminalMethods) {
 
 	// This state is the container of all commands
 	const [enteredCmd, setEnteredCmd] = useState<command[]>(commands);
@@ -27,6 +28,12 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 
 	// simple handle submit 
 	const handleSubmit = (cmd: string) => {
+		// check if the user types "exit"
+		if(cmd.trim() === "exit") {
+			killTerminal(id)
+			return
+		}
+
 		setEnteredCmd((currentCmd) => [
 			...currentCmd,
 			{ ...renderCmd(cmd.trim()), time: new Date().toLocaleTimeString() },
@@ -35,6 +42,10 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 
 	// watch the combination of crl + l to clear the terminal
 	useEffect(() => {
+		if(focusTerminal === id) {
+			inputRef.current.focus();
+		}
+
 		const handleKeyEvent = (e: KeyboardEvent) => {
 			if (focusTerminal !== id) return;
 			if (e.ctrlKey && e.key.toLocaleLowerCase() === "l") {
@@ -53,8 +64,14 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 
 
 	const handleKeyEvent = (e: KeyboardEvent) => {
+		// clear historial 	
 		if (e.ctrlKey && e.key.toLocaleLowerCase() === "l") {
 			setEnteredCmd([]);
+		}
+		// kill terminal
+		if(	e.altKey && e.key.toLowerCase() === "d") {
+			alert("delete")
+			killTerminal(id)
 		}
 	};
 	
