@@ -7,6 +7,7 @@ import CmdUserInput from "./CmdUserInput";
 import renderCmd from "@/lib/renderCmd"
 import { Rnd } from "react-rnd"
 import { TerminalBoxProps, command } from "@/types";
+import { motion } from 'framer-motion'
 
 interface terminalMethods {
 	focusTerminal: number
@@ -29,7 +30,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 	// simple handle submit 
 	const handleSubmit = (cmd: string) => {
 		// check if the user types "exit"
-		if(cmd.trim() === "exit") {
+		if (cmd.trim() === "exit") {
 			killTerminal(id)
 			return
 		}
@@ -42,7 +43,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 
 	// watch the combination of crl + l to clear the terminal
 	useEffect(() => {
-		if(focusTerminal === id) {
+		if (focusTerminal === id) {
 			inputRef.current.focus();
 		}
 
@@ -52,11 +53,11 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 				setEnteredCmd([]);
 			}
 		};
-	
+
 		if (focusTerminal === id) {
 			document.body.addEventListener("keydown", handleKeyEvent);
 		}
-	
+
 		return () => {
 			document.body.removeEventListener("keydown", handleKeyEvent);
 		};
@@ -69,13 +70,13 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 			setEnteredCmd([]);
 		}
 		// kill terminal
-		if(	e.altKey && e.key.toLowerCase() === "d") {
+		if (e.altKey && e.key.toLowerCase() === "d") {
 			alert("delete")
 			killTerminal(id)
 		}
 	};
-	
-	
+
+
 	//handling the focus on the element
 	// this method pass the ref to child component & keep the focus functionality on this level
 	const inputRef = useRef() as React.MutableRefObject<HTMLInputElement>;
@@ -94,7 +95,10 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 			className={`${focusTerminal === id ? 'z-[100000]' : 'z-0'}`}
 
 		>
-			<div
+			<motion.div
+				initial={{ opacity: 0, scale: 0.8 }}
+				animate={{ opacity: 1, scale: 1 }}
+				transition={{ duration: 0.2, type: 'spring' }}
 				onClick={() => clickOnTerminal(id, focusOnInput)}
 			>
 				<Navbar />
@@ -110,7 +114,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 
 
 				</div>
-			</div>
+			</motion.div>
 		</Rnd>
 
 

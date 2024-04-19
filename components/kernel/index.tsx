@@ -1,11 +1,10 @@
 "use client";
-import { Component, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import TerminalBox from "../terminal/TerminalBox";
 import Welcome from "../terminal/commands/Welcome";
 import Help from "../terminal/commands/Help";
-import { useRecoilState } from "recoil";
-import { terminalsAtom } from "@/lib/recoil";
 import { TerminalBoxProps } from "@/types";
+
 
 const Kernel = () => {
     // functions to get the screen size to center the terminals
@@ -13,25 +12,6 @@ const Kernel = () => {
         width: window.innerWidth,
         height: window.innerHeight
     });
-    // Track the screen size to put the terminal in center
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight
-            });
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-
-    // state that holds all the terminals : but does not contains the data of the comands
-    const [terminals, setTerminals] = useState<TerminalBoxProps[]>([]);
 
     const firtCmd = {
         id: 0,
@@ -52,6 +32,29 @@ const Kernel = () => {
             y: -windowSize.height / 4,
         }
     }
+    
+
+    // Track the screen size to put the terminal in center
+    useEffect(() => {
+        const handleResize = () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
+
+    // state that holds all the terminals : but does not contains the data of the comands
+    const [terminals, setTerminals] = useState<TerminalBoxProps[]>([firtCmd]);
+
+
 
     // handling the keydown & keyup
     useEffect(() => {
@@ -94,7 +97,7 @@ const Kernel = () => {
         const updatedTerminals = [...terminals];
         updatedTerminals.splice(i, 1);
         setTerminals(updatedTerminals);
-        setFocusTerminal(terminals.length - 2)
+        setFocusTerminal(terminals.length - 2);
     }
 
     return (
