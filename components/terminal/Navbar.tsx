@@ -1,7 +1,13 @@
 import React from "react";
 import { VscTerminalBash } from "react-icons/vsc";
 
-export default function Navbar() {
+export default function Navbar({
+	killTerminal,
+	id,
+}: {
+	killTerminal: (id: number) => void,
+	id: number
+}) {
 	const boxs = [
 		{
 			color: "bg-red-500",
@@ -20,8 +26,11 @@ export default function Navbar() {
 					{boxs.map(({ color }, index) => {
 						return (
 							<div
+								onClick={() => {
+									if(index === 0) killTerminal(id);
+								}}
 								key={index}
-								className={`w-3 h-3 ${color} rounded-full`}
+								className={`w-3 h-3 ${color} rounded-full cursor-pointer`}
 							></div>
 						);
 					})}

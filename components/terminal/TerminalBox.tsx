@@ -101,7 +101,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 				transition={{ duration: 0.2, type: 'spring' }}
 				onClick={() => clickOnTerminal(id, focusOnInput)}
 			>
-				<Navbar />
+				<Navbar killTerminal={killTerminal} id={id} />
 				<div className={`z-1 h-[50vh] w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto  bg-black bg-opacity-[.75] box ${(focusTerminal === id && !isUnique) ? 'bg-opacity-[.90]' : ""} transition-all duration-[800] `} >
 					<TodayDate />
 					<EnteredCmd enteredCmd={enteredCmd} />
