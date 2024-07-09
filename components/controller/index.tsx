@@ -1,67 +1,25 @@
 "use client";
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import TerminalBox from "../terminal/TerminalBox";
-import Welcome from "../terminal/commands/Welcome";
-import Help from "../terminal/commands/Help";
 import { TerminalBoxProps } from "@/types";
+import { useWindowSize } from "@react-hook/window-size"
+import { firtCmd } from "@/lib/constants";
 
 
-const Kernel = () => {
+const Controller = () => {
     // functions to get the screen size to center the terminals
-    const [windowSize, setWindowSize] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight
-    });
-
-    const firtCmd = {
-        id: 0,
-        commands: [
-            {
-                cmd: "",
-                Component: Welcome,
-                time: new Date().toLocaleTimeString(),
-            },
-            {
-                cmd: "help",
-                Component: Help,
-                time: new Date().toLocaleTimeString(),
-            }
-        ],
-        position: {
-            x: windowSize.width / 4,
-            y: -windowSize.height / 4,
-        }
-    }
-    
-
-    // Track the screen size to put the terminal in center
-    useEffect(() => {
-        const handleResize = () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight
-            });
-        };
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
-
-
+    const [windowWith, windowHeight] = useWindowSize()
     // state that holds all the terminals : but does not contains the data of the comands
-    const [terminals, setTerminals] = useState<TerminalBoxProps[]>([firtCmd]);
-
-
+    const [terminals, setTerminals] = useState<TerminalBoxProps[]>([firtCmd(windowWith, windowHeight)]);
+     // handling the click on the terminals
+     const [focusTerminal, setFocusTerminal] = useState<number>(0);
 
     // handling the keydown & keyup
     useEffect(() => {
         const createNewTerminal = (e: KeyboardEvent) => {
             if (e.ctrlKey && e.altKey && e.key.toLowerCase() === "t") {
                 if (terminals.length === 0) {
-                    setTerminals((prevState) => [...prevState, firtCmd]);
+                    setTerminals((prevState: any) => [...prevState, firtCmd]);
                 } else if (terminals.length === 4) {
                     alert("Limit of terminals reached");
                 } else {
@@ -69,7 +27,7 @@ const Kernel = () => {
                     {
                         commands: [],
                         id: terminals.length,
-                        position: { x: windowSize.width / 4 + 50 * terminals.length, y: -windowSize.height / 4 - 50 * terminals.length }
+                        position: { x: windowWith / 4 + 50 * terminals.length, y: -windowHeight / 4 - 50 * terminals.length }
                     }
                     ]);
                     setFocusTerminal(terminals.length)
@@ -83,9 +41,6 @@ const Kernel = () => {
             document.body.removeEventListener("keydown", createNewTerminal);
         };
     }, [terminals, setTerminals]);
-
-    // handling the click on the terminals
-    const [focusTerminal, setFocusTerminal] = useState<number>(0);
 
     const clickOnTerminal = (i: number, callback: () => void) => {
         setFocusTerminal(i);
@@ -117,4 +72,4 @@ const Kernel = () => {
     )
 }
 
-export default Kernel 
+export default Controller 
