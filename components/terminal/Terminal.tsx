@@ -85,7 +85,6 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 	return (
 
 		<Rnd
-
 			default={{
 				x: position.x,
 				y: position.y,

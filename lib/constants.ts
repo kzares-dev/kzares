@@ -19,7 +19,7 @@ export const firtCmd = (windowWith: number, windowHeight: number) => {
         ],
         position: {
             x: windowWith / 4,
-            y: -windowHeight / 4,
+            y: windowHeight/4,
         }
     }
 }

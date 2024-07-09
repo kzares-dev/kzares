@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import TerminalBox from "../terminal/TerminalBox";
+import TerminalBox from "../terminal/Terminal";
 import { TerminalBoxProps } from "@/types";
 import { useWindowSize } from "@react-hook/window-size"
 import { firtCmd } from "@/lib/constants";
@@ -27,7 +27,7 @@ const Controller = () => {
                     {
                         commands: [],
                         id: terminals.length,
-                        position: { x: windowWith / 4 + 50 * terminals.length, y: -windowHeight / 4 - 50 * terminals.length }
+                        position: { x: windowWith / 4 + 50 * terminals.length, y: windowHeight/ 2 - 50 * terminals.length }
                     }
                     ]);
                     setFocusTerminal(terminals.length)
