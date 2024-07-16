@@ -1,6 +1,8 @@
 import React from "react";
-import { GiClover, GiOpenFolder } from "react-icons/gi";
+import { GiOpenFolder } from "react-icons/gi";
 import { GoTriangleRight } from "react-icons/go";
+import { FaUbuntu } from "react-icons/fa6";
+
 
 interface BaseCmdInputProps {
 	Children: React.ReactNode;
@@ -15,7 +17,7 @@ export default function BaseCmdInput({
 			<div className="flex items-center">
 				<div className="w-5 h-1 bg-blue-600"></div>
 				<div className="flex gap-1 items-center bg-green-700 pl-2">
-					<GiClover />
+					<FaUbuntu />
 					<h1>kzares</h1>
 				</div>
 				<div

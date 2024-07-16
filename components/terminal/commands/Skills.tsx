@@ -1,5 +1,5 @@
 import ProgressBar from "../ProgressBar";
-import { listOfSkills } from "@/constants"
+import { listOfSkills } from "@/lib/constants"
 
 export default function Skills() {
 

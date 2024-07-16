@@ -1,4 +1,4 @@
-import { contacts } from "@/constants"
+import { contacts } from "@/lib/constants"
 
 export default function Contact() {
 

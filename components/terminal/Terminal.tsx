@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
-import TodayDate from "./TodayDate";
 import EnteredCmd from "./EnteredCmd";
 import CmdUserInput from "./CmdUserInput";
 import renderCmd from "@/lib/renderCmd"
@@ -88,7 +87,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 			default={{
 				x: position.x,
 				y: position.y,
-				width: "896",
+				width: "650",
 				height: "0",
 			}}
 			className={`${focusTerminal === id ? 'z-[100000]' : 'z-0'}`}
@@ -101,8 +100,7 @@ export default function TerminalBox({ commands, position, id, focusTerminal, cli
 				onClick={() => clickOnTerminal(id, focusOnInput)}
 			>
 				<Navbar killTerminal={killTerminal} id={id} />
-				<div className={`z-1 h-[50vh] w-4xl border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto  bg-black bg-opacity-[.75] box ${(focusTerminal === id && !isUnique) ? 'bg-opacity-[.90]' : ""} transition-all duration-[800] `} >
-					<TodayDate />
+				<div className={`z-1 md:h-[300px] lg:h-[450px] w-full  border-x-2 border-b-2 border-slate-800 rounded-b-md mx-auto text-gray-300 text-xl p-2 overflow-y-auto  bg-[#300a24] box ${(focusTerminal === id && !isUnique) ? 'bg-opacity-[.90]' : ""} transition-all duration-[800] `} >
 					<EnteredCmd enteredCmd={enteredCmd} />
 					<CmdUserInput
 						inputRef={inputRef}
