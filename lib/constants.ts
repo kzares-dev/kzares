@@ -30,37 +30,53 @@ import {
     SiNestjs,
     SiGithub,
     SiTelegram,
+    SiPostgresql,
 } from "react-icons/si";
-import { VscAzure } from "react-icons/vsc";
 import { CiPhone, CiMail } from "react-icons/ci";
+import { FaDocker } from "react-icons/fa6"
+import { BiLogoFlask, BiLogoMongodb } from "react-icons/bi"
 
 
 
 export const listOfSkills = [
     {
-        Icon: SiReact,
-        text: "React",
-    },
-    {
-        Icon: SiNestjs,
-        text: "Nest.js",
-    },
-    {
-        Icon: SiTailwindcss,
-        text: "Tailwindcss",
-    },
-    {
         Icon: SiTypescript,
         text: "Typescript",
     },
     {
-        Icon: SiExpress,
-        text: "Express.js",
+        Icon: BiLogoFlask,
+        text: "Flask",
+    },
+    {
+        Icon: SiReact,
+        text: "React",
     },
     {
         Icon: SiNextdotjs,
         text: "Next.js",
     },
+    {
+        Icon: SiNestjs,
+        text: "Nest.js",
+    },
+    
+    {
+        Icon: SiExpress,
+        text: "Express.js",
+    },
+    {
+        Icon: BiLogoMongodb,
+        text: "MongoDb",
+    },
+    {
+        Icon: SiPostgresql,
+        text: "Postgress",
+    },
+    {
+        Icon: FaDocker,
+        text: "Docker",
+    },
+    
 ];
 
 export const contacts = [
