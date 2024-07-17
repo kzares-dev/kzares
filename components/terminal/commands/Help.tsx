@@ -19,9 +19,9 @@ export default function Help() {
 		<div className="w-11/12 mx-auto">
 			{listOfHelpCommands.map(({ cmd, detail }, index) => {
 				return (
-					<div className="flex items-center gap-20  mt-3 " key={index}>
-						<h1 className="text-yellow-200 w-[150px]">{cmd}</h1>
-						<p className="text-gray-300 ">{detail}</p>
+					<div className="flex items-center justify-between gap-20  mt-3 " key={index}>
+						<h1 className="text-white bg-slate-500 rounded-md border px-2 py-1 min-w-[50px] ">{cmd}</h1>
+						<p className="text-slate-200 font-mono text-sm">{detail}</p>
 					</div>
 				);
 			})}

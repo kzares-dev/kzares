@@ -41,12 +41,12 @@ export default function CmdUserInput({ onSubmit, focusTerminal, id, inputRef }: 
 				<form onSubmit={handleSubmit} className="w-full flex items-center">
 					{showFakeCursor && (
 						<div className=" w-1 h-5 animate-blink bg-white translate-y-2 -translate-x-3"></div>
-					)}
+					)}	
 					<input
-						className="translate-y-2 -translate-x-3 bg-inherit w-full focus:outline-none placeholder:text-gray-600 placeholder:tracking-wider"
+						className="translate-y-2 -translate-x-3 bg-inherit text-[15px] w-full focus:outline-none placeholder:text-gray-500 font-semibold font-mono placeholder:tracking-wider"
 						ref={inputRef}
 						autoFocus
-						placeholder="try help , bio , skill , contact..."
+						placeholder="try help , bio , skills , contact..."
 					/>
 
 				</form>

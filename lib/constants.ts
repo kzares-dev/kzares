@@ -19,7 +19,7 @@ export const firtCmd = (windowWith: number, windowHeight: number) => {
     }
 }
 
-export const bio = ""
+export const bio = "My journey began in 2019 when I was drawn to C++ programming. Soon after, I dove into the world of frontend development with React, followed by Vue, and finally Svelte, as it was gaining momentum. However, my desire to create more ambitious projects pushed me to explore the backend with Python/Flask and Node/Nest. This journey has been incredibly fulfilling, but there is much more to learn and create!"
 
 import {
     SiExpress,
@@ -39,44 +39,26 @@ import { CiPhone, CiMail } from "react-icons/ci";
 export const listOfSkills = [
     {
         Icon: SiReact,
-        barWidth: "w-[90%]",
-        percentageValue: 90,
         text: "React",
     },
     {
-        Icon: VscAzure,
-        barWidth: "w-23%",
-        percentageValue: 23,
-        text: "Microsoft Azure",
-    },
-    {
         Icon: SiNestjs,
-        barWidth: "w-[90%]",
-        percentageValue: 90,
         text: "Nest.js",
     },
     {
         Icon: SiTailwindcss,
-        barWidth: "w-[85%]",
-        percentageValue: 85,
         text: "Tailwindcss",
     },
     {
         Icon: SiTypescript,
-        barWidth: "w-[80%]",
-        percentageValue: 80,
         text: "Typescript",
     },
     {
         Icon: SiExpress,
-        barWidth: "w-[80%]",
-        percentageValue: 80,
         text: "Express.js",
     },
     {
         Icon: SiNextdotjs,
-        barWidth: "w-[85%]",
-        percentageValue: 85,
         text: "Next.js",
     },
 ];

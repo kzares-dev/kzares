@@ -2,6 +2,7 @@ import { GoVerified } from "react-icons/go";
 import { SiGithub } from "react-icons/si";
 import Image from "next/image";
 import profilePic from "@/public/images/kzares-pic.png"
+import { bio } from "@/lib/constants";
 
 export default function Bio() {
 	const links = [
@@ -19,19 +20,18 @@ export default function Bio() {
 				<Image
 					src={profilePic}
 					alt=""
-					className="w-40 h-40 object-cover rounded-full border-2 border-yellow-200"
+					className="w-[120px] h-[120px] object-cover rounded-full border border-white"
 				/>
 				<div>
 					<div className="flex items-center gap-1">
-						<h1 className="text-2xl">Jorge A. Casares</h1>
-						<GoVerified className="text-blue-500 text-2xl" />
+						<h1 className="text-xl">Jorge A. Casares</h1>
+						<GoVerified className="text-blue-500 text-xl" />
 					</div>
-					<p className="text-lg text-gray-400">Join the world { new Date().getFullYear() - 2004 } years ago.</p>
+					<p className="text-sm text-gray-400 font-bold">Join the world { new Date().getFullYear() - 2004 } years ago.</p>
 				</div>
 			</div>
-			<p>
-			Hello! 🌟 As a dynamic developer well-versed in a spectrum of backend and frontend technologies, I seamlessly navigate the realms of software creation. My proficiency extends to the cloud domain, specifically Azure, where I harness the power of cloud computing to craft innovative solutions. With a wealth of experience in seamless integration and the orchestration of continuous development and integration practices, I thrive in the ever-evolving landscape of technology. I'm fueled by a passion for crafting robust and scalable systems that not only meet but exceed expectations 💻✨	
-
+			<p className="text-sm text-slate-400">
+				{bio}
 			</p>
 			<div className="grid grid-cols-2">
 				{links.map(({ Icon, text, href, title }, index) => {

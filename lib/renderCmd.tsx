@@ -21,7 +21,7 @@ function renderCmd(cmd: string): CmdHistory {
 				Component: Bio,
 				time: "",
 			};
-		case "skill":
+		case "skills":
 			return {
 				cmd,
 				Component: Skills,

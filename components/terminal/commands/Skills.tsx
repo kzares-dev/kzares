@@ -1,20 +1,19 @@
-import ProgressBar from "../ProgressBar";
 import { listOfSkills } from "@/lib/constants"
 
 export default function Skills() {
-
-
 	return (
-		<div>
-			{listOfSkills.map(({ Icon, barWidth, percentageValue, text }, index) => {
+		<div className="flex flex-wrap">
+			{listOfSkills.map(({ Icon, text }, idx) => {
 				return (
-					<ProgressBar
-						Icon={Icon}
-						barWidth={barWidth}
-						percentageValue={percentageValue}
-						key={index}
-						text={text}
-					/>
+					<div className="w-fit p-2" key={idx}>
+						<div className="flex justify-between mb-3">
+							<div className="flex gap-1 items-center text-xl text-gray-300 p-3 border border-slate-500 border-1 rounded-md">
+								<Icon/>
+								<h1>{text}</h1>
+							</div>
+						</div>
+			
+					</div>
 				);
 			})}
 		</div>
