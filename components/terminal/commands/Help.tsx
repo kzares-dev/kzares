@@ -6,9 +6,10 @@ type HelpCmd = {
 };
 export default function Help() {
 	const listOfHelpCommands: HelpCmd[] = [
-		{ cmd: "ls", detail: "List of folders ( portfolio projects )" },
 		{ cmd: "bio", detail: "Show bio information." },
-		{ cmd: "skill", detail: "List of skills." },
+		{ cmd: "experience", detail: "My codign journey" },
+		{ cmd: "portfolio", detail: "Interesting side/personal project" },
+		{ cmd: "skills", detail: "List of skills." },
 		{ cmd: "contact", detail: "Contact information" },
 		{ cmd: "ctrl + alt + t", detail: "Open new terminal" },
 		{ cmd: "ctrl + l", detail: "To clear the history." },
@@ -20,7 +21,7 @@ export default function Help() {
 			{listOfHelpCommands.map(({ cmd, detail }, index) => {
 				return (
 					<div className="flex items-center justify-between gap-20  mt-3 " key={index}>
-						<h1 className="text-white bg-slate-500 rounded-md border px-2 py-1 min-w-[50px] ">{cmd}</h1>
+						<h1 className="text-white text-sm font-mono bg-slate-500 rounded-md border px-2 py-1 min-w-[50px] ">{cmd}</h1>
 						<p className="text-slate-200 font-mono text-sm">{detail}</p>
 					</div>
 				);

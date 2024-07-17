@@ -36,7 +36,23 @@ import { CiPhone, CiMail } from "react-icons/ci";
 import { FaDocker } from "react-icons/fa6"
 import { BiLogoFlask, BiLogoMongodb } from "react-icons/bi"
 
-
+export const experience = [
+    {
+        role: "FRONT-END DEVELOPER/CUBA \n GLADIATORS AGENCY",
+        date: "JUNE 2022 – SEPTEMBER 2022",
+        description: "These months provided my first real work experience at a local software development agency. My primary role was maintaining websites built by the team."
+    },
+    {   
+        role: "FULL-STACK DEVELOPER \n TAXITEL",
+        date: "JANUARY 2023 – AGUST 2023",
+        description: "As part of a small team, I developed the website and mobile app for a Cuban taxi company that mirrored Uber's business model, using React Native."
+    },
+    {
+        role: "UPWORK FREELANCER",
+        date: "SEPTEMBER 2023 – NOW",
+        description: "Through Upwork, I gained extensive experience, particularly in client communication and negotiation. My projects ranged from small website and server adjustments to the full development  of web platforms."
+    }
+]
 
 export const listOfSkills = [
     {
