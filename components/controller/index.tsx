@@ -10,7 +10,7 @@ const Controller = () => {
     // functions to get the screen size to center the terminals
     const [windowWith, windowHeight] = useWindowSize()
     // state that holds all the terminals : but does not contains the data of the comands
-    const [terminals, setTerminals] = useState<TerminalBoxProps[]>([firtCmd(windowWith, windowHeight)]);
+    const [terminals, setTerminals] = useState<TerminalBoxProps[]>([firtCmd(windowWith/2, windowHeight/2)]);
      // handling the click on the terminals
      const [focusTerminal, setFocusTerminal] = useState<number>(0);
 

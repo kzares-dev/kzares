@@ -8,7 +8,7 @@ export default function Help() {
 	const listOfHelpCommands: HelpCmd[] = [
 		{ cmd: "bio", detail: "Show bio information." },
 		{ cmd: "experience", detail: "My codign journey" },
-		{ cmd: "portfolio", detail: "Interesting side/personal project" },
+		//{ cmd: "portfolio", detail: "Interesting side/personal project" },
 		{ cmd: "skills", detail: "List of skills." },
 		{ cmd: "contact", detail: "Contact information" },
 		{ cmd: "ctrl + alt + t", detail: "Open new terminal" },

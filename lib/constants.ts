@@ -1,4 +1,3 @@
-import Help from "@/components/terminal/commands/Help"
 import Welcome from "@/components/terminal/commands/Welcome"
 
 
@@ -9,7 +8,6 @@ export const firtCmd = (windowWith: number, windowHeight: number) => {
             {
             cmd: "",
                 Component: Welcome,
-                time: new Date().toLocaleTimeString(),
             },
         ],
         position: {
@@ -25,7 +23,6 @@ import {
     SiExpress,
     SiNextdotjs,
     SiReact,
-    SiTailwindcss,
     SiTypescript,
     SiNestjs,
     SiGithub,
